@@ -9,7 +9,7 @@ if (isset($_COOKIE['token'])) {
     header("Location: page.php");
     exit;
 };
-if (isset($_POST['login']) and isset($_POST['password'])) {
+if (isset($_POST['login']) and isset($_POST['password']) and ($_POST['login']!="") and ($_POST['password']!="")) {
     $login = mysqli_real_escape_string($db, $_POST['login']);
     $pass = mysqli_real_escape_string($db, $_POST['password']);
 

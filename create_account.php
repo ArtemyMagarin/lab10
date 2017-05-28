@@ -9,13 +9,13 @@ mysqli_set_charset($db, "utf8");
 if (!isset($_SESSION['register_passed'])) {
 	header("Location: register.php");
 };
-if (isset($_POST['firstname']) and isset($_POST['surname']) and isset($_POST['gender'])) {
+if (isset($_POST['firstname']) and isset($_POST['surname']) and isset($_POST['gender']) and ($_POST['firstname'] != "") and ($_POST['surname']!= "") and ($_POST['gender']!= "")) {
 	$firstname = mysqli_real_escape_string($db, $_POST['firstname']);
 	$surname = mysqli_real_escape_string($db, $_POST['surname']);
 	$gender = mysqli_real_escape_string($db, $_POST['gender']);
 	$birthday = 'NULL';
 } else {
-	$err_msg = 'Укажите свои имя, фамилию и пол';
+	$err_msg .= 'Укажите свои имя, фамилию и пол';
 };
 
 if (isset($_POST['bday']) and isset($_POST['bmonth']) and isset($_POST['byear'])) {
@@ -27,7 +27,7 @@ if (isset($_POST['bday']) and isset($_POST['bmonth']) and isset($_POST['byear'])
 	$bmonth = (int) $_POST['bmonth'];
 	$byear = (int) $_POST['byear'];
 	if (($byear > $year_max) or ($byear < $min)) {
-		$err_msg = 'Укажите корректную дату рождения';
+		$err_msg .= '<br/>Укажите корректную дату рождения';
 	} else {
 		if (!(($bmonth == 1) or ($bmonth == 3) or ($bmonth == 5) or ($bmonth == 7) or ($bmonth == 8) or ($bmonth == 10) or ($bmonth == 12))) {
 			$day_max = 30;
@@ -42,9 +42,11 @@ if (isset($_POST['bday']) and isset($_POST['bmonth']) and isset($_POST['byear'])
 		};
 
 		if (($bday > $day_max) or ($bday < $min) or ($bmonth > $month_max) or ($bmonth < $min)) {
-			$err_msg = 'Укажите корректную дату рождения';
+			$err_msg .= '<br/>Укажите корректную дату рождения';
 		};
 	};
+} else {
+	$err_msg .= '<br/>Укажите корректную дату рождения';
 };
 
 	if ($err_msg == '') {

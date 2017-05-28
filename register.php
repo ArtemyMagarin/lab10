@@ -9,7 +9,7 @@ if (isset($_COOKIE['token'])) {
     header("Location: page.php");
     exit;
 };
-if (isset($_POST['login']) and isset($_POST['password'])) {
+if ((preg_match_all('/(\w|[-.])+@\w+.\w+(.\w+)*/i', $_POST['login'])) and isset($_POST['login']) and isset($_POST['password']) and ($_POST['password'] != "") and ($_POST['login'] != "")) {
     $login = mysqli_real_escape_string($db, $_POST['login']);
     $pass = mysqli_real_escape_string($db, $_POST['password']);
 
@@ -18,7 +18,7 @@ if (isset($_POST['login']) and isset($_POST['password'])) {
     $result = mysqli_query($db, $query);
     $line = mysqli_fetch_array($result, MYSQLI_ASSOC);
     if (isset($line['password'])) {
-        $error_msg = 'Пользователь с таким email уже зарегистрирован';
+        $error_msg .= '<br/>Пользователь с таким email уже зарегистрирован';
     } else {
         $query = 'INSERT INTO `users` (`login`, `password`) VALUES ("'.$login.'", "'.password_hash($pass, PASSWORD_DEFAULT).'");';
         $result = mysqli_query($db, $query);
@@ -33,6 +33,12 @@ if (isset($_POST['login']) and isset($_POST['password'])) {
         exit;
     };
     mysqli_close($db);
+} else {
+    if ($_POST['login'] == "") {
+        $error_msg .= '<br/>Введите логин и пароль';
+    } else {
+        $error_msg .= '<br/>Введите корректный Email';
+    };
 };
 
 
