@@ -196,7 +196,7 @@ body {
     font-size: 14px;
 }
 
-#about-me-form fieldset {
+#about-me-form nav {
     border: none;
     padding: 15px;
     position: relative;
@@ -205,13 +205,13 @@ body {
 }
 
 
-#about-me-form fieldset form {
+#about-me-form nav form {
     overflow: hidden;
     width: 350px;
     margin: 0 auto;
 }
 
-#about-me-form fieldset form input {
+#about-me-form nav form input {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 14px;
     outline: none;
@@ -244,7 +244,7 @@ body {
   -webkit-appearance:none;
 }
 
-#about-me-form fieldset form input[type="submit"] {
+#about-me-form nav form input[type="submit"] {
     background-color: #ebebeb;
     border: none;
     border-radius: 3px;
@@ -257,20 +257,23 @@ body {
     margin-top: 40px;
     margin-bottom: 5px;
     padding: 12px 12px;
-  -webkit-appearance: none;
+   -webkit-appearance: none;
 }
 
-#about-me-form fieldset form input[type="radio"] {
-    width: auto;
+#about-me-form nav form input[type="radio"] {
+   -webkit-appearance: radio;
+   -moz-appearance: radio;
+   height: 13px;
+   max-width: 13px;
 }
 
-#about-me-form fieldset form input[type="submit"]:hover {
+#about-me-form nav form input[type="submit"]:hover {
     background-color: #e0e0e0;
 }
-#about-me-form fieldset form div{
+#about-me-form nav form div{
     text-align: center;
 }
-#about-me-form fieldset form p{
+#about-me-form nav form p{
     text-align: center;
     color: #ffffff;
     margin-top: 25px;

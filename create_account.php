@@ -80,15 +80,17 @@ if (isset($_POST['bday']) and isset($_POST['bmonth']) and isset($_POST['byear'])
  <body>
  <div id="about-me-form">
   	<h1>Немного обо мне:</h1>
- 		<fieldset>
+ 		<nav>
 		 	<form method="post">
 		 		<input type="text" name="firstname" autofocus="" required="" class="top" placeholder="Имя">
 		 		<input type="text" name="surname" class="bottom" required="" placeholder="Фамилия">
+		 	
 		 		<ul class="gender">
-			 		<li><input type="radio" name="gender" required="" value="female">Я женщина</li>
-			 		<li><input type="radio" name="gender" required="" value="male">Я мужчина</li>
-			 		<li><input type="radio" name="gender" required="" value="other">Другое</li>
+			 		<li><label><input type="radio" name="gender" required="" value="female">Я женщина</label></li>
+			 		<li><label><input type="radio" name="gender" required="" value="male">Я мужчина</label></li>
+			 		<li><label><input type="radio" name="gender" required="" value="other">Другое</label></li>
 		 		</ul>
+		 		
 		 		<p>Мой день рождения:</p>
 		 		<select id='bday' name="bday" onclick="day_filler(document.getElementById('bmonth').value, document.getElementById('byear').value, document.getElementById('bday').value)">
 		 			
@@ -102,7 +104,8 @@ if (isset($_POST['bday']) and isset($_POST['bmonth']) and isset($_POST['byear'])
 		 		<p class="error"><?php echo $err_msg ?></p>
 		 		<input type="submit" value="Опубликовать">
  			</form>
- 		</fieldset>
+ 		</nav>
+ 	
  </div>
 
  <script type="text/javascript">
