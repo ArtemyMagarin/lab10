@@ -2,9 +2,9 @@
 session_start();
 $err_msg = '';
 
-    $db = mysqli_connect('a201168.mysql.mchost.ru', 'a201168_maga123', 'uAg51vl701', 'a201168_maga123');
-
-    mysqli_set_charset($db, "utf8");
+require_once 'connection.php';
+$db = mysqli_connect($host, $login, $password, $dbname);
+mysqli_set_charset($db, "utf8");
 
 if (!isset($_SESSION['register_passed'])) {
 	header("Location: register.php");

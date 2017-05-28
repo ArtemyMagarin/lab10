@@ -1,7 +1,7 @@
 <?php 
 session_start();
-
-$db = mysqli_connect('a201168.mysql.mchost.ru', 'a201168_maga123', 'uAg51vl701', 'a201168_maga123');
+require_once 'connection.php';
+$db = mysqli_connect($host, $login, $password, $dbname);
 mysqli_set_charset($db, "utf8");
 
 $error_msg = '';
