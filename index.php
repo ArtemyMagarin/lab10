@@ -5,22 +5,35 @@ $db = mysqli_connect($host, $login, $password, $dbname);
 mysqli_set_charset($db, "utf8");
 
 $error_msg = '';
+
 if (isset($_COOKIE['token'])) {
     header("Location: page.php");
     exit;
 };
+
+
+
 if (isset($_POST['login']) and isset($_POST['password']) and ($_POST['login']!="") and ($_POST['password']!="")) {
     $login = mysqli_real_escape_string($db, $_POST['login']);
     $pass = mysqli_real_escape_string($db, $_POST['password']);
 
-
-
-
+    
     $query = 'SELECT `user_id`, `password` FROM `users` WHERE `users`.`login` = "'.$login.'" LIMIT 1;';
     $result = mysqli_query($db, $query);
+
     if ($result) {
         $line = mysqli_fetch_array($result, MYSQLI_ASSOC);
+        $query = 'SELECT `user_id` FROM `accounts` WHERE `accounts`.`user_id` = "'.$line['user_id'].'" LIMIT 1;';
+        $result = mysqli_query($db, $query);
+
+        if ($result == FALSE) {
+            mysqli_close($db);
+            header("Location: create_account.php");
+            exit;
+        }
+       
     };
+
 
     if (isset($line['password'])) {
         if (!password_verify($pass, $line['password'])) {
