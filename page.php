@@ -10,16 +10,18 @@ if (!isset($_COOKIE['token'])) {
     exit;
 };
 
-// if (isset($_GET['page_id'])) {
-// 	$result =  mysqli_query($db, 'select count(*) from `users`;') or die(mysqli_error($db));
-// 	$line = mysqli_fetch_array($result);
-// 	echo($line[0]);
-// 	if (int)$line[0] < $_GET['page_id'] {
-// 		header("Location: page.php");
-// 	    exit;
-// 	};
+if (isset($_GET['page_id'])) {
+	$result =  mysqli_query($db, 'select * from `users` where `users`.`user_id` = '.$_GET['page_id'].';') or die(mysqli_error($db));
+	$line = mysqli_fetch_array($result);
+	if ($line) {
+
+	} else {
+		header("Location: page.php");
+	    exit;
+	};
+	
     
-// };
+};
 
 // if registration isn't completed or no login
 if (isset($_COOKIE['token']) and $_COOKIE['token']!="") {
@@ -30,14 +32,14 @@ if (isset($_COOKIE['token']) and $_COOKIE['token']!="") {
 	        $line = mysqli_fetch_array($result, MYSQLI_ASSOC);
 	$query = 'SELECT `user_id`,`firstname`,`surname`,`bday`,`sex`,`status`,`marital_status`,`city`,`job`,`edu`,`interests` FROM `accounts` WHERE `accounts`.`user_id` = "'.$line['user_id'].'" LIMIT 1;';
 	        $result = mysqli_query($db, $query);
-
-	        if ($result == FALSE) {
+	        $line = mysqli_fetch_array($result, MYSQLI_ASSOC);
+	        if (!$line) {
 	            mysqli_close($db);
 	            header("Location: create_account.php");
 	            exit;
 	        }
 
-	        $line = mysqli_fetch_array($result, MYSQLI_ASSOC);
+	        
 			foreach ($line as $key => $value) {
 				if (gettype($value) == 'NULL') {
 					$line[$key] = "не указано";
@@ -163,8 +165,8 @@ if ((!isset($_GET['page_id']) or ($_GET['page_id'] == $_SESSION['user_id']))) {
 								};
 
 							} else {
-								header("Location: page.php");
-							    exit;
+								// header("Location: page.php");
+							 //    exit;
 							};
 
 

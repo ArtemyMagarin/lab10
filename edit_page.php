@@ -76,7 +76,7 @@
          max-width: 13px;
          font-size: 14px;
          outline: none;
-         -webkit-appearance:none;
+         
          width: 350px;
          align: center;
          position: center;
