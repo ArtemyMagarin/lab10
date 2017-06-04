@@ -10,6 +10,17 @@ if (!isset($_COOKIE['token'])) {
     exit;
 };
 
+// if (isset($_GET['page_id'])) {
+// 	$result =  mysqli_query($db, 'select count(*) from `users`;') or die(mysqli_error($db));
+// 	$line = mysqli_fetch_array($result);
+// 	echo($line[0]);
+// 	if (int)$line[0] < $_GET['page_id'] {
+// 		header("Location: page.php");
+// 	    exit;
+// 	};
+    
+// };
+
 // if registration isn't completed or no login
 if (isset($_COOKIE['token']) and $_COOKIE['token']!="") {
 	$query = 'SELECT `user_id`, `password` FROM `users` WHERE `users`.`token` = "'.$_COOKIE['token'].'" LIMIT 1;';
@@ -69,6 +80,7 @@ if ((!isset($_GET['page_id']) or ($_GET['page_id'] == $_SESSION['user_id']))) {
 	$result = mysqli_query($db, $query);
 	if ($result) {
 		$line = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
 		foreach ($line as $key => $value) {
 			if (gettype($value) == 'NULL') {
 				$line[$key] = "не указано";
@@ -138,8 +150,8 @@ if ((!isset($_GET['page_id']) or ($_GET['page_id'] == $_SESSION['user_id']))) {
 							$query = 'SELECT `first`,`second`,`initiator` FROM `friends` WHERE (`friends`.`first` = '.$_GET['page_id'].' and `friends`.`second` = '.$_SESSION['user_id'].') or (`friends`.`first` = '.$_SESSION['user_id'].' and `friends`.`second` = '.$_GET['page_id'].');';
 							$result = mysqli_query($db, $query);
 							
-							if ($result) {
-								$line = mysqli_fetch_array($result ,MYSQLI_ASSOC);
+							if ($line = mysqli_fetch_array($result ,MYSQLI_ASSOC)) {
+								
 								if ($line['initiator'] == $_SESSION['user_id']) {
 									$friend_status = 'Отозвать заявку в друзья';
 								};
@@ -150,6 +162,9 @@ if ((!isset($_GET['page_id']) or ($_GET['page_id'] == $_SESSION['user_id']))) {
 									$friend_status = 'Убрать из друзей';
 								};
 
+							} else {
+								header("Location: page.php");
+							    exit;
 							};
 
 
