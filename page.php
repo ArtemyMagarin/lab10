@@ -129,7 +129,7 @@ if ((!isset($_GET['page_id']) or ($_GET['page_id'] == $_SESSION['user_id']))) {
 					<?php 
 						if ($IS_MY_PAGE) {
 							echo ('
-								<li><a href="#">Редактировать</a></li>
+								<li><a href="edit_page.php">Редактировать</a></li>
 								<li><a href="logout.php">Выход</a></li>
 							');
 						} else {

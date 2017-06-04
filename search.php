@@ -59,7 +59,7 @@
 			$city = '<a>'.$line['city'].'</a>';
 		};
 
-		$people_list[] = ' <ul class="nav nav-pills"><li><a href="page.php?page_id='.$line['user_id'].'"><b>'.$line['firstname']." ".$line['surname'].'</b></a></li><li class="active pull-right"><a>'.$bday.'</a></li><li class="active pull-right"></li></ul>';
+		$people_list[] = ' <ul class="nav nav-pills"><li><a href="page.php?page_id='.$line['user_id'].'"><b>'.$line['firstname']." ".$line['surname'].'</b></a></li><li class="active pull-right"><a>'.$bday.'</a></li><li class="active pull-right">'.$city.'</li></ul>';
 	};
 
 	// foreach ($people_list as $key => $value) {
@@ -93,7 +93,7 @@
 					<?php 
 						if ($IS_MY_PAGE) {
 							echo ('
-								<li><a href="#">Редактировать</a></li>
+								<li><a href="page.php">Моя страница</a></li>
 								<li><a href="logout.php">Выход</a></li>
 							');
 						} else {
