@@ -9,7 +9,7 @@ if (isset($_COOKIE['token'])) {
     header("Location: page.php");
     exit;
 };
-if ((preg_match_all('/(\w|[-.])+@\w+.\w+(.\w+)*/i', $_POST['login'])) and isset($_POST['login']) and isset($_POST['password']) and ($_POST['password'] != "") and ($_POST['login'] != "")) {
+if (isset($_POST['login']) and (preg_match_all('/(\w|[-.])+@\w+.\w+(.\w+)*/i', $_POST['login'])) and isset($_POST['password']) and ($_POST['password'] != "") and ($_POST['login'] != "")) {
     $login = mysqli_real_escape_string($db, $_POST['login']);
     $pass = mysqli_real_escape_string($db, $_POST['password']);
 
@@ -34,7 +34,7 @@ if ((preg_match_all('/(\w|[-.])+@\w+.\w+(.\w+)*/i', $_POST['login'])) and isset(
     };
     mysqli_close($db);
 } else {
-    if ($_POST['login'] == "") {
+    if (isset($_POST['login']) and $_POST['login'] == "") {
         $error_msg .= '<br/>Введите логин и пароль';
     } else {
         $error_msg .= '<br/>Введите корректный Email';
