@@ -5,6 +5,11 @@ require_once 'connection.php';
 $db = mysqli_connect($host, $login, $password, $dbname);
 mysqli_set_charset($db, "utf8");
 
+if (!isset($_COOKIE['token'])) {
+    header("Location: index.php");
+    exit;
+};
+
 // if registration isn't completed or no login
 if (isset($_COOKIE['token']) and $_COOKIE['token']!="") {
 	$query = 'SELECT `user_id`, `password` FROM `users` WHERE `users`.`token` = "'.$_COOKIE['token'].'" LIMIT 1;';
@@ -149,7 +154,7 @@ if ((!isset($_GET['page_id']) or ($_GET['page_id'] == $_SESSION['user_id']))) {
 
 
 							echo ('
-								<li><a href="add_to_friends.php">'.$friend_status.'</a></li>
+								<li><a href="add_to_friends.php?page_id='.$_GET['page_id'].'">'.$friend_status.'</a></li>
 								<li><a href="page.php">Моя страница</a></li>
 								<li><a href="logout.php">Выход</a></li>
 							');
