@@ -164,9 +164,9 @@ if ((!isset($_GET['page_id']) or ($_GET['page_id'] == $_SESSION['user_id']))) {
 					 ?>
 						
 					</ul>
-					<form class="navbar-form navbar-right">
+					<form class="navbar-form navbar-right" method="get" action="search.php">
   							<div class="form-group">
-						    	<input type="text" class="form-control navbar-right" placeholder="Поиск друзей">
+						    	<input type="text" class="form-control navbar-right" placeholder="Поиск друзей" name="q">
 						  	</div>
 						  	<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span>
 </button>
