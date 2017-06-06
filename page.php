@@ -197,7 +197,14 @@ if ((!isset($_GET['page_id']) or ($_GET['page_id'] == $_SESSION['user_id']))) {
 <div class="container">
 	<div class="row">
 		<div class="col-lg-4 col-md-4 col-sm-4 col-4">
-			Cтатус: <span id="status" onclick="changeStatus(this)"><?php echo $status; ?></span> <a style="cursor: pointer;" onclick="changeStatus(document.getElementById('status')); this.style = 'display:none'"">Изменить</a><br>
+		<?php 
+			if ($IS_MY_PAGE) {
+				echo 'Cтатус: <span id="status" onclick="changeStatus(this)">'.$status.'</span> <a style="cursor: pointer;" onclick="changeStatus(document.getElementById(\'status\')); this.style = \'display:none\'"">Изменить</a><br>';
+			} else {
+				echo 'Cтатус: '. $status.'<br>';
+			};
+		 ?>
+			
 			Пол: <?php echo $gender; ?> <br>
 			Дата рождения: <?php echo $bday ?> <br>
 			Cемейное положение: <?php echo $marital_status; ?><br> 
