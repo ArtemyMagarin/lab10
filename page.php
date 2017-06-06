@@ -199,7 +199,7 @@ if ((!isset($_GET['page_id']) or ($_GET['page_id'] == $_SESSION['user_id']))) {
 		<div class="col-lg-4 col-md-4 col-sm-4 col-4">
 		<?php 
 			if ($IS_MY_PAGE) {
-				echo 'Cтатус: <span id="status" onclick="changeStatus(this)">'.$status.'</span> <a style="cursor: pointer;" onclick="changeStatus(document.getElementById(\'status\')); this.style = \'display:none\'"">Изменить</a><br>';
+				echo 'Cтатус: <span id="status">'.$status.'</span> <a style="cursor: pointer;" onclick="changeStatus(document.getElementById(\'status\')); this.style = \'display:none\'"">Изменить</a><br>';
 			} else {
 				echo 'Cтатус: '. $status.'<br>';
 			};
