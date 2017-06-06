@@ -197,7 +197,7 @@ if ((!isset($_GET['page_id']) or ($_GET['page_id'] == $_SESSION['user_id']))) {
 <div class="container">
 	<div class="row">
 		<div class="col-lg-4 col-md-4 col-sm-4 col-4">
-			Cтатус: <?php echo $status; ?><br>
+			Cтатус: <span id="status" onclick="changeStatus(this)"><?php echo $status; ?></span> <a style="cursor: pointer;" onclick="changeStatus(document.getElementById('status')); this.style = 'display:none'"">Изменить</a><br>
 			Пол: <?php echo $gender; ?> <br>
 			Дата рождения: <?php echo $bday ?> <br>
 			Cемейное положение: <?php echo $marital_status; ?><br> 
@@ -241,6 +241,12 @@ if ((!isset($_GET['page_id']) or ($_GET['page_id'] == $_SESSION['user_id']))) {
 		</div>							
 	</div>
 </div>
-
+<script type="text/javascript">
+	function changeStatus(elem) { 
+		elem.onclick = "";
+		var status = elem.innerHTML;
+		elem.innerHTML = '<form method="post" action="change_status.php"><input type="text" value="'+status+'" name="new_status"> <input type="submit" value="=>"></form>'
+	};
+</script>
 </body>
 </html>	
