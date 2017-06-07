@@ -46,6 +46,7 @@ if (isset($_COOKIE['token']) and $_COOKIE['token']!="") {
 				};
 			};
 	        $_SESSION['user_id'] = $line['user_id'];
+	        $user_id = $_SESSION['user_id'];
 	        $name = $line['firstname']; 
 			$surname = $line['surname'];
 			$bday = $line['bday'];
@@ -220,7 +221,6 @@ if ((!isset($_GET['page_id']) or ($_GET['page_id'] == $_SESSION['user_id']))) {
 
 		</div>	
 		<div class="col-lg-4 col-md-4 col-sm-4 col-4">
-		Друзья: <br>
 			<?php 
 				$initiator = $_GET['page_id'];
 				$friends_list = array();
@@ -239,11 +239,50 @@ if ((!isset($_GET['page_id']) or ($_GET['page_id'] == $_SESSION['user_id']))) {
 					}
 				};
 
-				foreach ($friends_list as $key => $value) {
-					echo $value;
+				if ($friends_list) {
+					echo 'Друзья:<br>';
+					foreach ($friends_list as $key => $value) {
+						echo $value;
+					};
+				};
+				
+
+				if ($IS_MY_PAGE){
+
+					$query = 'SELECT `first`,`second`,`initiator` FROM `friends` WHERE ((`friends`.`first` = '.$user_id.') or (`friends`.`second` = '.$user_id.')) and (`friends`.`initiator` != 0) and (`friends`.`initiator` != '.$user_id.');';
+					$result = mysqli_query($db, $query) or die(mysqli_error($db));
+
+					$applications = array();
+
+					while($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+						if ($line['first'] == $user_id) {
+							// $applications[] = $line['second'];
+							$query = 'SELECT `firstname`,`surname` FROM `accounts` WHERE (`accounts`.`user_id` = '.$line['second'].');';
+							$result = mysqli_query($db, $query) or die(mysqli_error($db));
+							$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+							$applications[] = '<a href="page.php?page_id='.$line['second'].'">'.$row['firstname']." ".$row['surname'].'</a><br>';
+						} else {
+							// $applications[] = $line['first'];
+							$query = 'SELECT `firstname`,`surname` FROM `accounts` WHERE (`accounts`.`user_id` = '.$line['first'].');';
+							$result = mysqli_query($db, $query) or die(mysqli_error($db));
+							$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+							$applications[] = '<a href="page.php?page_id='.$line['first'].'">'.$row['firstname']." ".$row['surname'].'</a><br>';
+						};
+
+					};
+
+					if ($applications) {
+						echo '<br>Заявки в друзья:<br>';
+						foreach ($applications as $key => $value) {
+							echo $applications[$key].'<br>';
+						};
+					};
 				};
 
+
+
 			 ?>
+
 
 		</div>							
 	</div>
